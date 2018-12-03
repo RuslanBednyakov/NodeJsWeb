@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+// import engine from 'ejs-mate';
 // const express = require('express');
 // const bodyParser = require('body-parser');
 // const cookieParser = require('cookie-parser');
@@ -8,6 +9,16 @@ import cookieParser from 'cookie-parser';
 import router from '../routes';
 
 const app = express();
+
+// // use ejs-locals for all ejs templates:
+// app.engine('ejs', engine);
+
+// app.set('views', './template');
+// app.set('view engine', 'ejs');
+
+// app.get('/test', function(req, res) {
+//   res.render('auth');
+// })
 
 app.use(cookieParser());
 
@@ -18,7 +29,7 @@ app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
 app.use(bodyParser.raw({ type: 'application/yaml' }));
 
 
-app.use('/', express.static('public'));
+// app.use('/', express.static('public'));
 
 
 app.use('/api/v1', router);

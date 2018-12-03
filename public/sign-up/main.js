@@ -2,11 +2,11 @@ window.onload = function() {
     let name = document.getElementById('registrationName');
     let email = document.getElementById('registrationEmail');
     let password = document.getElementById('registrationPassword');
-    let avatar = document.getElementById('registrationAvatar');
+    // let avatar = document.getElementById('registrationAvatar');
     let button = document.getElementById('registrationButton');
 
     button.addEventListener('click', () => {
-        fetch('http://localhost:3000/auth', {
+        fetch('http://localhost:4000/api/v1/auth/sign-up', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -15,7 +15,7 @@ window.onload = function() {
                 name: name.value,
                 email: email.value,
                 password: password.value,
-                avatar: avatar.value,
+                // avatar: avatar.value,
             }),
         })
             .then((response) => {
@@ -28,8 +28,8 @@ window.onload = function() {
                 }
             })
             .then((response) => {
-                if (response.message === 'ok') {
-                    document.location.replace('/login')
+                if (response.message === 'Sign-up successfully') {
+                    document.location.replace('/api/v1/auth')
                 }else {
                     throw response.message
                 }

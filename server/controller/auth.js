@@ -1,4 +1,5 @@
 import Sequelize from 'sequelize';
+import { createPass, comparePass } from '../services/hash';
 
 import db from '../model';
 
@@ -10,10 +11,10 @@ export async function signUp(req, res, next){
 
   try {
     const pass = data.password;
+    const hashPass = createPass(pass);
     const user = await db.User.create({
       name: data.name,
-      password: pass,
-      age: data.age,
+      password: hashPass,
       email: data.email
     });
   
@@ -22,7 +23,7 @@ export async function signUp(req, res, next){
       result: 1,
       data: {
         user: {
-          id,
+          // id,
           name: data.name,
           email: data.email
         }
@@ -40,11 +41,12 @@ export async function signUp(req, res, next){
 export function signIn(req, res, next){
 
   const data = req.body;
+  console.log(data);
 
   db.User
     .findOne({ where: { email: { [Op.eq]: data.email } } })
     .then(user => {
-      if (user !== null && user.password === data.password) {
+      if (user !== null && comparePass(user.dataValues, data.password)) {
         res.status(200).send({
           result: 1,
           data: {

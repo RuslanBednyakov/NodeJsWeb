@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%=block('title').toString()%></title>
+    <%-block('style').toString()%>
+</head>
+<body>
+  <header >
+    <div class="container header__container">
+        <div class="header__container_logo">
+            <img class="header__container_logo-img" src="img/header/BlackandWhite.png" alt="BlackandWhite">
+            <p class="header__container_logo-text">Lorem ipsum dolor sit amet.</p>
+        </div>
+        <div class="header__container_search">
+            <input class="header__container_search-input" type="search" name="search" id="search__bar">
+            <button class="button header__container_search-button"> Search </button>
+        </div>
+    </div>
+      <%-block('header').toString()%>
+  </header>
+  <section class="container">
+    <h1><%=block('sectionTitle').toString()%></h1>
+    <%-body -%>
+  </section>
+  <footer>
+    <p> &copy; Footer content <a href="#" class="footer__link"> Link footer </a> </p>
+    <%-block('footer').toString()%>
+  </footer>
+  <%=block('script').toString()%>
+</body>
+</html>

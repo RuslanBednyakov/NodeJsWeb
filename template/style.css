@@ -1,0 +1,56 @@
+.header {
+  background: black url(file:///C:/Users/Sloth/YandexDisk/programming/Site2/img/header/header-background.png); }
+  .header__container {
+    height: 60px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: end; }
+    .header__container_logo {
+      width: 160px;
+      height: 40px;
+      text-align: start; }
+      .header__container_logo-img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        padding-right: 30px; }
+      .header__container_logo-text {
+        color: #686868;
+        font-size: 12px; }
+    .header__container_search {
+      color: white;
+      width: 50%; }
+      .header__container_search-input {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        border: 1px solid #4c4c4c;
+        background-color: #323232;
+        -webkit-box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, 0.21);
+        box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, 0.21);
+        width: 70%;
+        max-width: 350px;
+        height: 30px;
+        margin-right: 10px;
+        padding: 10px;
+        color: #e2e2e2; }
+      .header__container_search-button {
+        cursor: pointer;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        border: 1px solid #4c4c4c;
+        background-color: black;
+        width: 80px;
+        font-weight: bold;
+        color: white;
+        padding: 6px 15px;
+        height: 30px; }
+        .header__container_search-button:hover {
+          background: #686868;
+          color: black; }

@@ -5,9 +5,10 @@ module.exports = {
     db: {
       host: '127.0.0.1',
       user: 'postgres',
-      pass: 'postgres',
-      name: 'sloth',
+      pass: 'ruslan22577',
+      name: 'ruslan',
       dialect: 'postgres',
       port: 5432
-    }
+    },
+    secret: 'vkjellow'
 }
