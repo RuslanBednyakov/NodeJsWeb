@@ -1,12 +1,23 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+
+import session from 'express-session';
+import db from '../model';
+import config from './config'
+
 // import engine from 'ejs-mate';
 // const express = require('express');
 // const bodyParser = require('body-parser');
 // const cookieParser = require('cookie-parser');
 
 import router from '../routes';
+
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const sessionStore = new SequelizeStore({
+  db: db,
+  table: 'Session'
+})
 
 const app = express();
 
@@ -21,6 +32,18 @@ const app = express();
 // })
 
 app.use(cookieParser());
+
+// Using Sessions for authorisation
+app.use(session({
+  secret: config.session.secret,
+  name: config.session.name,
+  cookie: config.session.cookie,
+  store: sessionStore,
+  resave: false,
+  saveUninitialized: config.session.saveUninitialized
+}))
+
+sessionStore.sync();
 
 // // Parse incoming request bodies
 // // https://github.com/expressjs/body-parser

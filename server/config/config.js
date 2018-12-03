@@ -10,5 +10,15 @@ module.exports = {
       dialect: 'postgres',
       port: 5432
     },
-    secret: 'vkjellow'
+    secret: 'vkjellow',
+    session: { 
+      secret: 'jellyfish',
+      name: 'sid',
+      cookie: {
+        path: '/',
+        httpOnly: true,
+        maxAge: null
+      },
+      saveUninitialized: true
+    }
 }

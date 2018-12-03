@@ -12,10 +12,12 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "connect-session-sequelize": "^6.0.0",
     "cookie-parser": "^1.4.3",
     "ejs-locals": "^1.0.2",
     "ejs-mate": "^3.0.0",
     "express": "^4.16.4",
+    "express-session": "^1.15.6",
     "pg": "^7.6.1",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.41.2",

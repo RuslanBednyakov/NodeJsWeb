@@ -1,0 +1,18 @@
+import crypto from 'crypto';
+
+import config from '../config/config';
+
+export function createPass(pass){
+  // const hmac = crypto.createHmac('sha256', config.secret).update(pass).diggest('hex');
+  // return hmac;
+  const secret = 'abcdefg';
+  const hash = crypto.createHmac('sha256', secret)
+                   .update(pass)
+                   .digest('hex');
+  return hash;
+}
+
+export function comparePass(user, pass){
+  const checkPass = createPass(pass);
+  return (checkPass === user.password);
+}

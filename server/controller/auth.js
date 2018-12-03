@@ -47,6 +47,7 @@ export function signIn(req, res, next){
     .findOne({ where: { email: { [Op.eq]: data.email } } })
     .then(user => {
       if (user !== null && comparePass(user.dataValues, data.password)) {
+        req.session.user = user.dataValues.id;
         res.status(200).send({
           result: 1,
           data: {
