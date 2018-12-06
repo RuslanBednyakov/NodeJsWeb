@@ -1,12 +1,3 @@
-body,html{
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    background: azure;
-}
 .login {
     height: calc(90% - 100px);
     display: flex;

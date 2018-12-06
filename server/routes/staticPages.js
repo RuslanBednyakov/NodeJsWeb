@@ -3,8 +3,14 @@ const express = require('express');
 const router = express.Router();
 
 
-router.use('/auth', express.static('public/auth'))
-router.use('/signUp', express.static('public/sign-up'))
-router.use('/home', checkAuth, express.static('public/home'))
+router.get('/login', function(req, res, next) {
+  res.render('auth');
+})
+router.get('/registration', function(req, res, next) {
+  res.render('signUp');
+})
+router.get('/homep', checkAuth, function(req, res, next) {
+  res.render('homePage');
+})
 
 export { router as staticPages };

@@ -1,8 +1,14 @@
 <% layout('/layout/page') -%>
 <% block('title').append('Authorisation') %>
-<% block('style').append('<link type="stylesheet" href="style.css">') %>
-<% block('Header').append('Welcome to Authorisation') %>
-<% block('sectionTitle').append('Authorise') %>
-<% block('footer').append('Bye') %>
+<% block('style').append('<link type="text/css" rel="stylesheet" href="auth/style.css">') %>
+<% block('script').append('<script src="auth/main.js"></script>') %>
 
-<p class="lead"> Всем Привет! </p>
+<div class="login">
+  <div>LOGIN</div>
+  <div><input id="email" type="text" name="email" ></div>
+  <div>PASSWORD</div>
+  <div><input id="password" type="text" name="pass"></div>
+  <button id="submit">login</button>
+  <p class=""></p>
+  <div id="error"></div>
+</div>

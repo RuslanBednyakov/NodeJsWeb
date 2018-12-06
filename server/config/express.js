@@ -1,39 +1,27 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import engine from 'ejs-mate';
 
-import session from 'express-session';
-import db from '../model';
 import config from './config'
-
-// import engine from 'ejs-mate';
-// const express = require('express');
-// const bodyParser = require('body-parser');
-// const cookieParser = require('cookie-parser');
-
+import session from 'express-session';
+import sessionStore from '../services/sessionStore';
+import * as customErrors from '../error'
 import router from '../routes';
 
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const sessionStore = new SequelizeStore({
-  db: db,
-  table: 'Session'
-})
 
 const app = express();
 
-// // use ejs-locals for all ejs templates:
-// app.engine('ejs', engine);
+// use ejs-locals for all ejs templates:
+app.use('/api/v1', express.static('./public'));
+app.engine('ejs', engine);
 
-// app.set('views', './template');
-// app.set('view engine', 'ejs');
-
-// app.get('/test', function(req, res) {
-//   res.render('auth');
-// })
+app.set('views', './template');
+app.set('view engine', 'ejs');
 
 app.use(cookieParser());
 
-// Using Sessions for authorisation
+// Using Sessions for Authorisation
 app.use(session({
   secret: config.session.secret,
   name: config.session.name,
@@ -62,6 +50,16 @@ app.use(function(req, res, next) {
   const err = new Error('Not Found');
   err.status = 404;
   next(err);
+});
+
+app.use(function(error, req, res, next) {
+  if(typeof err == 'number') {
+    err = new customErrors.HttpError(err);
+  }
+  if(err instanceof customErrors.HttpError) {
+    res.render('error', {error: err});
+  }
+  next();
 });
 
 // Development error handler

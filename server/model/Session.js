@@ -6,6 +6,8 @@ export default function (sequelize, DataTypes) {
       primaryKey: true,
       field: 'sid'
     },
+    userId: DataTypes.STRING,
+    expires: DataTypes.DATE,
     data: DataTypes.STRING(50000)
   }, {
     tableName: 'sessions',
