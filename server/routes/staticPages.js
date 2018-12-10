@@ -3,13 +3,13 @@ const express = require('express');
 const router = express.Router();
 
 
-router.get('/login', function(req, res, next) {
+router.get('/sign-in', function(req, res, next) {
   res.render('auth');
 })
-router.get('/registration', function(req, res, next) {
+router.get('/sign-up', function(req, res, next) {
   res.render('signUp');
 })
-router.get('/homep', checkAuth, function(req, res, next) {
+router.get('/home', checkAuth, function(req, res, next) {
   res.render('homePage');
 })
 

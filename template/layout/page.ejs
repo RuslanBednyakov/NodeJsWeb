@@ -5,45 +5,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title><%=block('title').toString()%></title>
-        <link type="text/css" rel="stylesheet" href="css/main.css">
-        <script src="vendor/bower_components/axios/dist/axios.js"></script>
+        <link type="text/css" rel="stylesheet" href="/api/v1/layoutPage/css/main.css">
+        <script src="/api/v1/layoutPage/vendor/bower_components/axios/dist/axios.js"></script>
+        <script src="/api/v1/layoutPage/js/main.js"></script>
         <%-block('style').toString() %>
     </head>
     <body>
         <div class="wrapper">
             <div class="content">
                 <header class="header">
-                    <div class="container header__container">
-                        <div class="header__container_logo">
-                            <img class="header__container_logo-img" src="img/BlackandWhite.png" alt="BlackandWhite">
-                            <p class="header__container_logo-text">Lorem ipsum dolor sit amet.</p>
-                        </div>
-                        <div class="header__container_search">
-                            <input class="header__container_search-input" type="search" name="search" id="search__bar">
-                            <button class="button header__container_search-button"> Search </button>
-                        </div>
-                    </div>
+                        <% include ../partials/header %>
                 </header>
                 <article class="section">
-                    <nav class="container menu">
-                        <ul class="menu__list">
-                            <li class="menu__list_item home">
-                                <a href="#" class="menu__list_item-link"> Home </a>
-                            </li>
-                            <li class="menu__list_item about">
-                                <a href="#" class="menu__list_item-link"> About </a>
-                            </li>
-                            <li class="menu__list_item work">
-                                <a href="#" class="menu__list_item-link">Work</a>
-                            </li>
-                            <li class="menu__list_item blog">
-                                <a href="#" class="menu__list_item-link"> Blog </a>
-                            </li>
-                            <li class="menu__list_item contact">
-                                <a href="#" class="menu__list_item-link"> Contact </a>
-                            </li>
-                        </ul>
-                    </nav>
+                        <% include ../partials/nav %>
                     <div class="container">
                         <div class="info">
                             <%-body -%>
@@ -52,7 +26,7 @@
                 </article>
             </div>
             <footer class="footer container">
-                <p> &copy; Footer content <a href="#" class="footer__link"> Link footer </a> </p>
+                    <% include ../partials/footer %>
             </footer>
         </div>
         <%-block('script').toString()%>

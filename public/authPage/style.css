@@ -15,16 +15,3 @@ button {
     margin: 10px;
     width: 30%;
 }
-a {
-    text-decoration: none;
-    font-size: 23px;
-    padding: 30px;
-    text-align: right;
-    width: 48px;
-}
-a:hover {
-    color: darkred;
-}
-h1  {
-    text-align: center;
-}

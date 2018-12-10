@@ -1,0 +1,9 @@
+.registration {
+    height: calc(90% - 100px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.registration div {
+    margin: 4px;
+}

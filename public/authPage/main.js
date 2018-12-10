@@ -10,7 +10,7 @@ window.onload = function() {
             password: password.value,
         };
 
-        const url = new URL('http://localhost:4000/api/v1/auth/login');
+        const url = new URL('http://localhost:4000/api/v1/auth/sign-in');
         // url.search = new URLSearchParams(loginData);
         fetch(url, {
             method: 'POST',

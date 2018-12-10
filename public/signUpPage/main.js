@@ -29,7 +29,7 @@ window.onload = function() {
             })
             .then((response) => {
                 if (response.message === 'Sign-up successfully') {
-                    document.location.replace('/api/v1/auth')
+                    document.location.replace('/api/v1/sign-in')
                 }else {
                     throw response.message
                 }

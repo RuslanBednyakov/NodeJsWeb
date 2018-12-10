@@ -1,0 +1,28 @@
+<nav class="container menu">
+    <ul class="menu__list">
+        <% if (!user) { %>
+        <li class="menu__list_item home">
+            <a href="#" class="menu__list_item-link"> Home </a>
+        </li>
+        <li class="menu__list_item authorisation">
+            <a href="" class="menu__list_item-link" id="logIn"> Sign In </a>
+        </li>
+        <% } else {%>
+        <li class="menu__list_item myPage">
+            <a href="#" class="menu__list_item-link"> My Page </a>
+        </li>
+        <li class="menu__list_item news">
+            <a href="#" class="menu__list_item-link"> News </a>
+        </li>
+        <li class="menu__list_item myFriends">
+            <a href="#" class="menu__list_item-link"> My Friends </a>
+        </li>
+        <li class="menu__list_item chat">
+            <a href="#" class="menu__list_item-link">Chat</a>
+        </li>
+        <li class="menu__list_item authorisation">
+            <a href="" class="menu__list_item-link" id="logOut"> Log Out </a>
+        </li>
+        <% } %>
+    </ul>
+</nav>

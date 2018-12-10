@@ -41,7 +41,6 @@ export async function signUp(req, res, next){
 export function signIn(req, res, next){
 
   const data = req.body;
-  console.log(data);
 
   db.User
     .findOne({ where: { email: { [Op.eq]: data.email } } })
@@ -69,4 +68,11 @@ export function signIn(req, res, next){
     .catch(err => { 
       throw new Error(err.message)
     })
+}
+
+export function logOut(req, res, next){
+  req.session.destroy();
+  res.status(200).send({
+    message: 'OK'
+  })
 }

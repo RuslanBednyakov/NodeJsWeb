@@ -6,6 +6,7 @@ import engine from 'ejs-mate';
 import config from './config'
 import session from 'express-session';
 import sessionStore from '../services/sessionStore';
+import {loadUser} from '../services/loadUser'
 import * as customErrors from '../error'
 import router from '../routes';
 
@@ -21,6 +22,15 @@ app.set('view engine', 'ejs');
 
 app.use(cookieParser());
 
+// // Parse incoming request bodies
+// // https://github.com/expressjs/body-parser
+app.use(bodyParser.json({limit: '10mb'}));
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
+app.use(bodyParser.raw({ type: 'application/yaml' }));
+
+//Using custom metod 'res.sendHttpError' to send HttpError
+app.use(require('../middleware/sendHttpError'));
+
 // Using Sessions for Authorisation
 app.use(session({
   secret: config.session.secret,
@@ -33,52 +43,41 @@ app.use(session({
 
 sessionStore.sync();
 
-// // Parse incoming request bodies
-// // https://github.com/expressjs/body-parser
-app.use(bodyParser.json({limit: '10mb'}));
-app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
-app.use(bodyParser.raw({ type: 'application/yaml' }));
-
+app.use(loadUser);
 
 // app.use('/', express.static('public'));
 
 
 app.use('/api/v1', router);
+console.log('check');
 
 
-app.use(function(req, res, next) {
-  const err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+// app.use(function(req, res, next) {
+//   const err = new Error('Not Found');
+//   err.status = 404;
+//   next(err);
+// });
+
 
 app.use(function(error, req, res, next) {
-  if(typeof err == 'number') {
-    err = new customErrors.HttpError(err);
+  if(typeof error == 'number') {
+    error = new customErrors.HttpError(error);
   }
-  if(err instanceof customErrors.HttpError) {
-    res.render('error', {error: err});
-  }
-  next();
-});
-
-// Development error handler
-// Displays stacktrace to the user
-if (app.get('env') === 'development') {
-  app.use(function(error, req, res, next) {
+  if(error instanceof customErrors.HttpError) {
+    res.sendHttpError(error);
+  } else {
+    // Development error handler
+    // Displays stacktrace to the user
+    if (app.get('env') === 'development') {
     res.status(error.status || 500);
     console.log('Error from middleware', error);
-    
     res.send({message: error.message, error});
-  });
-}
-
-// Production error handler
-// Does not display stacktrace to the user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.send(err);
+    };
+    // Production error handler
+    // Does not display stacktrace to the user
+    res.status(err.status || 500);
+    res.send(err);
+  }
 });
 
 export default app;
-// module.exports = app;
