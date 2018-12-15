@@ -2,25 +2,28 @@
     <ul class="menu__list">
         <% if (!user) { %>
         <li class="menu__list_item home">
-            <a href="#" class="menu__list_item-link"> Home </a>
+            <a href="/api/v1/home" class="menu__list_item-link"> Home </a>
         </li>
-        <li class="menu__list_item authorisation">
-            <a href="" class="menu__list_item-link" id="logIn"> Sign In </a>
+        <li class="menu__list_item signIn">
+            <a href="/api/v1/sign-in" class="menu__list_item-link"> Sign In </a>
+        </li>
+        <li class="menu__list_item signUP">
+            <a href="/api/v1/sign-up" class="menu__list_item-link"> Sign Up </a>
         </li>
         <% } else {%>
         <li class="menu__list_item myPage">
-            <a href="#" class="menu__list_item-link"> My Page </a>
+            <a href="/api/v1/my-page" class="menu__list_item-link"> My Page </a>
         </li>
         <li class="menu__list_item news">
-            <a href="#" class="menu__list_item-link"> News </a>
+            <a href="/api/v1/news" class="menu__list_item-link"> News </a>
         </li>
         <li class="menu__list_item myFriends">
-            <a href="#" class="menu__list_item-link"> My Friends </a>
+            <a href="/api/v1/friends" class="menu__list_item-link"> My Friends </a>
         </li>
         <li class="menu__list_item chat">
-            <a href="#" class="menu__list_item-link">Chat</a>
+            <a href="/api/v1/chat" class="menu__list_item-link">Chat</a>
         </li>
-        <li class="menu__list_item authorisation">
+        <li class="menu__list_item logOut">
             <a href="" class="menu__list_item-link" id="logOut"> Log Out </a>
         </li>
         <% } %>

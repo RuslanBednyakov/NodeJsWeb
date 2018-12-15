@@ -14,5 +14,7 @@ export function createPass(pass){
 
 export function comparePass(user, pass){
   const checkPass = createPass(pass);
+  console.log(checkPass)
+  console.log(user.password)
   return (checkPass === user.password);
 }

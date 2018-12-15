@@ -7,7 +7,11 @@
         <title><%=block('title').toString()%></title>
         <link type="text/css" rel="stylesheet" href="/api/v1/layoutPage/css/main.css">
         <script src="/api/v1/layoutPage/vendor/bower_components/axios/dist/axios.js"></script>
-        <script src="/api/v1/layoutPage/js/main.js"></script>
+        <script src="/api/v1/layoutPage/js/config.js"></script>
+        <script src="/api/v1/layoutPage/js/api.js"></script>
+        <script src="/api/v1/layoutPage/js/logOut.js"></script>
+        <%-block('script').toString()%>
+        <script src="/api/v1/layoutPage/js/app.js"></script>
         <%-block('style').toString() %>
     </head>
     <body>
@@ -19,7 +23,7 @@
                 <article class="section">
                         <% include ../partials/nav %>
                     <div class="container">
-                        <div class="info">
+                        <div class="main">
                             <%-body -%>
                         </div>
                     </div>
@@ -29,6 +33,10 @@
                     <% include ../partials/footer %>
             </footer>
         </div>
-        <%-block('script').toString()%>
+        <script>
+            document.addEventListener("DOMContentLoaded", function(){
+                App.run();
+            });
+        </script>
     </body>
 </html>

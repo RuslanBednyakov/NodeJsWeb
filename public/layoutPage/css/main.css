@@ -522,12 +522,18 @@ a {
       .menu__list_item:hover {
         background: #686868;
         color: black; }
-.authorisation {
+.signIn {
+  margin-left: auto;
+}
+.signUp {
+  border: none;
+}
+.logOut {
   margin-left: auto;
   border: none;
 }
 
-.info {
+.main {
   border: 1px solid #e2e2e2;
   -webkit-box-shadow: 0px 0px 3px 0px #c0c0c0;
   box-shadow: 0px 0px 3px 0px #c0c0c0;

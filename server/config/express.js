@@ -45,18 +45,8 @@ sessionStore.sync();
 
 app.use(loadUser);
 
-// app.use('/', express.static('public'));
-
 
 app.use('/api/v1', router);
-console.log('check');
-
-
-// app.use(function(req, res, next) {
-//   const err = new Error('Not Found');
-//   err.status = 404;
-//   next(err);
-// });
 
 
 app.use(function(error, req, res, next) {
