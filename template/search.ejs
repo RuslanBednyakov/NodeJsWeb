@@ -1,10 +1,9 @@
 <% layout('/layout/page') -%>
 <% block('title').append('Search') %>
-<% block('script').append('<script src="searchPage/search.js"></script>') %>
 
 <div class="search__container">
   <div class="search__container_tittle">
-    <h3 class="search__container_tittle-header">Search result: <span class="search__count"></span> users found </h3>
+    <h3 class="search__container_tittle-header">Search result: <span id="search__count"></span> users found </h3>
   </div>
   <div class="search__container_results">
     <ul class="search__container_results-list" id="search__list"></ul>

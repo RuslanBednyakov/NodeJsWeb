@@ -513,13 +513,14 @@ a {
     height: 100%;
     color: white;
     font-weight: bold; }
-    .menu__list_item {
+    .menu__list_item-link {
+      display: block;
       -webkit-box-sizing: border-box;
       box-sizing: border-box;
       padding: 6px 25px;
       border-right: 1px solid #686868;
       height: 100%; }
-      .menu__list_item:hover {
+      .menu__list_item-link:hover {
         background: #686868;
         color: black; }
 .signIn {
