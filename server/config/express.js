@@ -46,7 +46,7 @@ sessionStore.sync();
 app.use(loadUser);
 
 
-app.use('/api/v1', router);
+app.use('/', router);
 
 
 app.use(function(error, req, res, next) {

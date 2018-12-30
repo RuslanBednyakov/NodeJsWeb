@@ -20,8 +20,7 @@ const LogOut = class {
       })
       .then(function (response) {
           if (response.message === 'OK') {
-              // localStorage.setItem('token', response.token);
-              document.location.replace('/api/v1/sign-in');
+              document.location.replace('/sign-in');
           }else {
               throw response.message
           }

@@ -18,6 +18,30 @@ export default function (sequelize, DataTypes) {
       tableName: 'users',
       timestamps: false
     })
+
+
+    User.associate = function (models) {
+
+      models.User.belongsToMany(models.User, {
+        as: 'userFollowing',
+        foreignKey: 'following',
+        onDelete: "CASCADE",
+        through: models.Follower,
+      });
+      models.User.belongsToMany(models.User, {
+        as: 'userFollower',
+        foreignKey: 'follower',
+        onDelete: "CASCADE",
+        through: models.Follower,
+      });
+      models.User.hasMany(models.Post, {
+        foreignKey: {
+          allowNull: false,
+          name: 'user_id'
+        },
+        onDelete: "CASCADE"
+      });
+    };
   
     return User;
   

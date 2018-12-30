@@ -10,5 +10,7 @@ router.post('/sign-in', Controller.auth.signIn);
 
 router.post('/logout', Controller.auth.logOut);
 
+router.post('/user', Controller.auth.getUser);
+
 
 export { router as auth };

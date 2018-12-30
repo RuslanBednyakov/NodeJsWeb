@@ -4,7 +4,7 @@ const SignIn = class {
         this.api = api;
         this.data = signInData;
         this.errorContainer = errorContainer;
-        this. path = 'auth/sign-in';
+        this.path = 'auth/sign-in';
     }
 
     submit() {
@@ -23,7 +23,7 @@ const SignIn = class {
             .then((response) => {
                 if (response.message === 'Sign-in successfully.') {
                     // localStorage.setItem('token', response.token);
-                    document.location.replace('/api/v1/home');
+                    document.location.replace('/my-page');
                 }else {
                     throw response.message;
                 }

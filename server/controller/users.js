@@ -8,9 +8,12 @@ export function getUsersByName(req, res, next){
   const data = req.body;
 
   db.User
-    .findAndCountAll({ where: { name: { [Op.eq]: data.name } } })
+    .findAndCountAll({ where: { name: { [Op.iLike]: `%${data.name}%`} } })
     .then(users => {
       if (users !== null) {
+        users.forEach(element => {
+          delete element.password;
+        });
         res.status(200).send({
           result: 1,
           data: users,

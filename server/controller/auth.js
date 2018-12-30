@@ -76,3 +76,34 @@ export function logOut(req, res, next){
     message: 'OK'
   })
 }
+
+export function getUser(req, res, next){
+  
+  let response;
+
+  if(req.user){
+
+    const currentUser = {
+      name: req.user.name,
+      id: req.user.id,
+      email: req.user.email,
+      avatar: req.user.avatar
+    };
+    
+    response = {
+      message: 'User authorised',
+      result: 1,
+      data: {
+        user: currentUser
+      }
+    }
+  } else {
+
+    response = {
+      message: 'User unauthorised',
+      result: 1,
+    }
+  }
+
+  res.status(200).send(response);
+}

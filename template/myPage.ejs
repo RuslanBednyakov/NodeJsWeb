@@ -1,0 +1,17 @@
+<% layout('/layout/page') -%>
+<% block('title').append('My Page') %>
+<% block('script').append('<script src="api/v1/myPage/myPage.js"></script>') %>
+
+<div class="user__container">
+  <div class="user__container_header">
+    <div class="user__container_header-avatar" id="user-avatar__container"></div>
+    <div class="user__container_header-info" id="user-info__container"></div>
+  </div>
+  <div class="user__container_posts">
+    <ul class="user__container_posts-list" id="user-posts__list"></ul>
+    <input id="user-posts__newPostTitle" type="text" name="newPostTitle">
+    <textarea name="newPostContent" id="user-posts__newPostContent" class="user__container_posts-newContent" cols="30" rows="10"></textarea>
+    <button id="user-posts__addPostButton">Add Post</button>
+    <div class="user__container_posts-error" id="user-posts__error"></div>
+  </div>
+</div>

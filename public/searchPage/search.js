@@ -1,10 +1,10 @@
-let SearchU = class {
+const Search = class {
 
     constructor(api, searchContainer, searchCount, searchData) {
 
         this.api = api;
         this.data = searchData || this.getSearchDataFromUrl() || '';
-        this.path = 'search';
+        this.path = 'search/user';
         // this.searchParametr = `?name=${searchData}`
         this.searchParametr = `?name=`
 
@@ -33,19 +33,12 @@ let SearchU = class {
 
     redirectToSearchPage() {
 
-        this.api.get(this.path + this.searchParametr + this.data)
-            .then((response) => {
-                console.log('response', response)
-                document.location.replace(`/api/v1/search?name=${this.data}`);
-            })
-            .catch(error => console.log('error', error));
+        document.location.replace(`/search?name=${this.data}`);
     }
 
-    async getSearchResult(searchData) {
-
-        // return await Promise.resolve(1);
+    getSearchResult(searchData) {
         
-      return await this.api.post('search', searchData)
+      return this.api.post(this.path, searchData)
             .then((response) => {
             if (response.status >= 200 && response.status < 300) {
                 return response.data;

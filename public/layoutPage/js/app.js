@@ -19,17 +19,24 @@ const App = (function (){
           this.searchInput = document.getElementById('search__bar');
           this.searchContainer = document.getElementById('search__list');
           this.searchCount = document.getElementById('search__count');
+
           this.logOutSubmitButton = document.getElementById('logOut');
+
           this.signInEmailInput = document.getElementById('email');
           this.signInPasswordInput = document.getElementById('password');
           this.signInSubmitButton = document.getElementById('submit');
           this.signInErrorContainer = document.getElementById('error');
+
           this.signUpNameInput = document.getElementById('registrationName');
           this.signUpEmailInput = document.getElementById('registrationEmail');
           this.signUpPasswordInput = document.getElementById('registrationPassword');
           this.signUpSubmitButton = document.getElementById('registrationButton');
 
-          this.search = new SearchU(this.api, this.searchContainer, this.searchCount);
+
+          this.currentPageName = this.getCurrentPageName();
+          this.user = null;
+          this.pageObject = null;
+          this.search = new Search(this.api, this.searchContainer, this.searchCount);
       },
 
       attachEvents: function(){
@@ -88,15 +95,105 @@ const App = (function (){
         signUp.submit();
       },
 
-      render: function(){
+      getUser: function() {
 
-        const currentSearchInputValue = this.search.getSearchData()
+        return this.api.post('/auth/user')
+          .then((response) => {
+              if (response.status >= 200 && response.status < 300) {
+                  return response.data;
+              } else {
+                  let error = new Error(response.statusText);
+                  error.response = response;
+                  return error
+              }
+          })
+          .then((response) => {
+              if (response.message === 'User authorised') {
+                return response.data.user
+              }else {
+                return null;
+              }
+          })
+          .catch((error) => {             
+              console.error('error', error);
+          });
+      },
+
+      getCurrentPageName: function() {
+
+        return document.location.pathname;
+      },
+
+      initMyPage: function() {
+
+        this.myPageAvatarContainer = document.getElementById('user-avatar__container');
+        this.myPageUserInfoContainer = document.getElementById('user-info__container');
+        this.myPageUserPostsContainer = document.getElementById('user-posts__list');
+        this.myPageAddPostInputTitle = document.getElementById('user-posts__newPostTitle');
+        this.myPageAddPostTextareaContent = document.getElementById('user-posts__newPostContent');
+        this.myPageAddPostButton = document.getElementById('user-posts__addPostButton');
+        this.myPageAddPostError = document.getElementById('user-posts__error');
+
+        const myPageDomElements = {
+          avatarContainer: this.myPageAvatarContainer,
+          userInfoContainer: this.myPageUserInfoContainer,
+          userPostsContainer: this.myPageUserPostsContainer,
+          addPostInputTitle: this.myPageAddPostInputTitle,
+          addPostTextareaContent: this.myPageAddPostTextareaContent,
+          addPostButton: this.myPageAddPostButton,
+          addPostError: this.myPageAddPostError
+        }
+
+        return myPageDomElements;
+
+      },
+
+      renderMyPage: function() {
+
+        const myPageDomElements = this.initMyPage();
+        
+        this.pageObject = new MyPage(this.api, this.user, myPageDomElements);
+        this.pageObject.render();
+      },
+
+      renderPage: function(page) {
+
+        switch (page) {
+
+          case '/my-page': 
+    
+            this.renderMyPage();
+            break;
+
+          // case '/news': 
+    
+          //   this.renderNewsPage();
+          //   break;
+    
+          default: return;
+        }
+      },
+
+
+      render: async function(){
+
+        const currentUser = await this.getUser();
+
+        if( currentUser ) {
+          this.user = new User(currentUser);
+        };
+
+        const currentSearchInputValue = this.search.getSearchData();
 
         if(currentSearchInputValue) {
 
           this.search.render();
           return;
-        }
+        };
+
+        const currentPageName = this.currentPageName;
+        this.renderPage(currentPageName);
+
       },
   }
   return new App();

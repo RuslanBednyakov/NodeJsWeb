@@ -1,5 +1,8 @@
 <% layout('/layout/page') -%>
 <% block('title').append('Search') %>
+<% if (user) { %>
+  <% block('script').append('<script src="api/v1/myPage/user.js"></script>') %>
+<% } %>
 
 <div class="search__container">
   <div class="search__container_tittle">

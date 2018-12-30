@@ -18,7 +18,6 @@ router.get('/search', function(req, res, next) {
   res.render('search');
 })
 
-router.post('/search', Controller.users.getUsersByName);
 
 router.get('/home', checkAuth, function(req, res, next) {
   res.render('homePage');
@@ -26,7 +25,7 @@ router.get('/home', checkAuth, function(req, res, next) {
 
 
 router.get('/my-page', checkAuth, function(req, res, next) {
-  return next(new customErrors.HttpError(401, 'Sorry, this page is not available for now'));
+  res.render('myPage');
 })
 router.get('/news', checkAuth, function(req, res, next) {
   return next(new customErrors.HttpError(401, 'Sorry, this page is not available for now'));

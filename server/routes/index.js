@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 import { staticPages } from './staticPages';
-import { auth } from './auth';
+import { api } from './api';
 
 router.use('/', staticPages);
-router.use('/auth', auth);
+router.use('/api/v1', api);
+
 
 export default router
