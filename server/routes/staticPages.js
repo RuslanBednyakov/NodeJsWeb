@@ -5,6 +5,12 @@ import * as Controller from '../controller';
 const express = require('express');
 const router = express.Router();
 
+router.get('/', function(req, res, next) {
+  if (req.user) {
+    res.redirect('/my-page');
+  }
+  res.redirect('/sign-in');
+})
 
 router.get('/sign-in', function(req, res, next) {
   res.render('auth');
@@ -28,13 +34,13 @@ router.get('/my-page', checkAuth, function(req, res, next) {
   res.render('myPage');
 })
 router.get('/news', checkAuth, function(req, res, next) {
-  return next(new customErrors.HttpError(401, 'Sorry, this page is not available for now'));
+  res.render('news');
 })
 router.get('/friends', checkAuth, function(req, res, next) {
-  return next(new customErrors.HttpError(401, 'Sorry, this page is not available for now'));
+  res.render('myFriends');
 })
 router.get('/chat', checkAuth, function(req, res, next) {
-  return next(new customErrors.HttpError(401, 'Sorry, this page is not available for now'));
+  res.render('chat');
 })
 
 export { router as staticPages };

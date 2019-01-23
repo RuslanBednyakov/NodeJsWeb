@@ -1,0 +1,9 @@
+<% layout('/layout/page') -%>
+<% block('title').append('My Page') %>
+<% block('script2').append('<script src="api/v1/chat/chat.js"></script>') %>
+
+<div class="chat__container">
+  <ul class="chat__container_list" id="chatList"></ul>
+  <input type="text" class="chat__container_input" id="inputMessage">
+  <button class="chat__container_button" id="sendMessageButton">Send</button>
+</div>

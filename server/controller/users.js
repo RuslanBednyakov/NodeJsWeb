@@ -6,14 +6,31 @@ const Op = Sequelize.Op;
 export function getUsersByName(req, res, next){
 
   const data = req.body;
+  let userId = null;
+
+  if(req.user) {
+
+    userId = req.user.id;
+  }
 
   db.User
-    .findAndCountAll({ where: { name: { [Op.iLike]: `%${data.name}%`} } })
+    .findAndCountAll({ 
+      attributes: { exclude: ['password'] },
+      where: { 
+        name: { [Op.iLike]: `%${data.name}%`},
+        id: {[Op.ne]: userId}
+      },
+      include: [{
+        model: db.User,
+        as: 'userFollowing',
+        attributes: { exclude: ['password'] },
+        through: {
+          where: { follower: userId}
+        }
+      }] 
+    })
     .then(users => {
       if (users !== null) {
-        users.forEach(element => {
-          delete element.password;
-        });
         res.status(200).send({
           result: 1,
           data: users,

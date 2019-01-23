@@ -35,7 +35,7 @@ const MyPage = class {
   attachAvatar() {
 
     const userAvatar = new Image();
-    userAvatar.src = '/api/v1/avatars/1.jpg'
+    userAvatar.src = '/api/v1/avatars/default.png'
     this.domElements.avatarContainer.appendChild(userAvatar);
   }
 

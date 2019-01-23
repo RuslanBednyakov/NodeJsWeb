@@ -3,12 +3,24 @@
 <% block('style').append('<link type="text/css" rel="stylesheet" href="api/v1/authPage/style.css">') %>
 <% block('script').append('<script src="api/v1/authPage/auth.js"></script>') %>
 
-<div class="login">
-  <div>LOGIN</div>
-  <div><input id="email" type="text" name="email" ></div>
-  <div>PASSWORD</div>
-  <div><input id="password" type="text" name="pass"></div>
-  <button id="submit">login</button>
-  <p class=""></p>
-  <div id="error"></div>
+<div class="sign-in__container">
+  <h2 class="sign-in__container_title">Sign in!</h2>
+  <p class="sign-in__container_title-signature">Welcome to our community!</p>
+  <div class="sign-in__container_email">
+      <label class="sign-in__container_label" for="sign-in_email">Email</label>
+      <input class="sign-in__container_input" id="sign-in_email" type="text">
+  </div>
+  <div class="sign-in__container_password">
+      <label class="sign-in__container_label" for="sign-in_password">Password</label>
+      <input class="sign-in__container_input" id="sign-in_password" type="text">
+  </div>
+  <div class="sign-in__container_submit-button">
+      <button class="sign-in__container_button" id="sign-in_submit-button">Sign-in</button>
+  </div>
+  <div class="sign-in__container_error" id="sign-in_error"></div>
+  <!-- <div>Avatar</div>
+  <div><input id="registrationAvatar" type="text"></div> -->
+  <div class="sign-in__container_redirect">
+      <p class="sign-in__container_redirect-text">Still don't have an account? <a href="/sign-up" class="sign-in__container_redirect_link">Sign-Up</a></p>
+  </div>
 </div>

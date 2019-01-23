@@ -9,26 +9,40 @@ export async function signUp(req, res, next){
 
   const data = req.body;
 
+  let response;
+
   try {
     const pass = data.password;
     const hashPass = createPass(pass);
-    const user = await db.User.create({
-      name: data.name,
-      password: hashPass,
-      email: data.email
-    });
-  
-    const response = {
-      message: 'Sign-up successfully',
-      result: 1,
-      data: {
-        user: {
-          // id,
-          name: data.name,
-          email: data.email
+    const user = await db.User
+    .findOrCreate({
+      where: {
+        email: data.email
+      }, 
+      defaults: {
+        name: data.name,
+        password: hashPass
+      }
+    })
+    .spread((user, created) => {
+      if(created) {
+        response = {
+          message: 'Sign-up successfully',
+          result: 1,
+          data: {
+            user: {
+              name: data.name,
+              email: data.email
+            }
+          }
+        }
+      } else {
+        response = {
+          message: 'Sorry, but this email already exist',
+          result: 1
         }
       }
-    }
+    })
   
     res.status(200).send(response);
 
@@ -71,7 +85,16 @@ export function signIn(req, res, next){
 }
 
 export function logOut(req, res, next){
-  req.session.destroy();
+
+  const sid = req.session.id;
+  const io = req.app.get('io');
+
+  req.session.destroy( function(err) {
+    
+    io.sockets._events.sessionReload(sid);
+    if(err) return next(err);
+  });
+
   res.status(200).send({
     message: 'OK'
   })

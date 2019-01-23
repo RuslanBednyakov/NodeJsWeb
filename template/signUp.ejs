@@ -3,14 +3,33 @@
 <% block('style').append('<link type="text/css" rel="stylesheet" href="api/v1/signUpPage/style.css">') %>
 <% block('script').append('<script src="api/v1/signUpPage/signUp.js"></script>') %>
 
-<div class="registration">
-    <div>Login</div>
-    <div><input id="registrationName" type="text" ></div>
-    <div>Email</div>
-    <div><input id="registrationEmail" type="text"></div>
-    <div>Password</div>
-    <div><input id="registrationPassword" type="text"></div>
-    <div>Avatar</div>
-    <!-- <div><input id="registrationAvatar" type="text"></div> -->
-    <button id="registrationButton">registration</button>
+<div class="sign-up__container">
+    <h2 class="sign-up__container_title">Join us!</h2>
+    <p class="sign-up__container_title-signature">Create your own account and join us</p>
+    <div class="sign-up__container_email">
+        <label class="sign-up__container_label" for="sign-up_email">Email</label>
+        <input class="sign-up__container_input" id="sign-up_email" type="text">
+    </div>
+    <div class="sign-up__container_name">
+        <label class="sign-up__container_label" for="sign-up_name">Name</label>
+        <input class="sign-up__container_input" id="sign-up_name" type="text">
+    </div>
+    <div class="sign-up__container_password">
+        <label class="sign-up__container_label" for="sign-up_password">Password</label>
+        <input class="sign-up__container_input" id="sign-up_password" type="text">
+    </div>
+    <div class="sign-up__container_password-confirm">
+        <label class="sign-up__container_label" for="sign-up_password-confirm">Confirm Password</label>
+        <input class="sign-up__container_input" id="sign-up_password-confirm" type="text">
+    </div>
+    <div class="sign-up__container_submit-button">
+        <button class="sign-up__container_button" id="sign-up_submit-button">Sign-up</button>
+    </div>
+    <div class="sign-up__container_error" id="sign-up_error"></div>
+    <!-- <div>Avatar</div>
+    <div><input id="registrationAvatar" type="text"></div> -->
+    <div class="sign-up__container_redirect">
+        <p class="sign-up__container_redirect-text">Already have an account? <a href="/sign-in" class="sign-up__container_redirect_link">Sign-in</a></p>
+    </div>
 </div>
+

@@ -1,8 +1,9 @@
 const Search = class {
 
-    constructor(api, searchContainer, searchCount, searchData) {
+    constructor(api, user, searchContainer, searchCount, searchData) {
 
         this.api = api;
+        this.user = user;
         this.data = searchData || this.getSearchDataFromUrl() || '';
         this.path = 'search/user';
         // this.searchParametr = `?name=${searchData}`
@@ -10,6 +11,11 @@ const Search = class {
 
         this.container = searchContainer;
         this.count = searchCount;
+    }
+
+    setUser(user) {
+        
+        this.user = user;
     }
 
     setSearchData(newData) {
@@ -58,6 +64,82 @@ const Search = class {
             .catch(error => console.log('error', error));
     }
 
+    changeButtons(button, user, name) {
+
+        let newButton;
+
+        if(name === 'Follow') {
+
+            newButton = this.createButtonFollow(user)
+        } else if (name === 'Unfollow') {
+
+            newButton = this.createButtonUnfollow(user)
+        }
+
+        button.parentNode.replaceChild(newButton, button)
+    }
+
+    unfollowUser(user, button) {
+
+        return function() {
+
+            this.api.delete(`followers/${user.id}`)
+            .then((response) => {
+            if (response.status >= 200 && response.status < 300) {
+                this.changeButtons(button, user, 'Follow');
+                return response.data;
+            } else {
+                let error = new Error(response.statusText);
+                error.response = response;
+                return error
+            }
+            })
+            .catch((error) => {             
+            console.error('error', error);
+            });
+        }
+    }
+
+    followNewUser(user, button) {
+
+        return function() {
+
+            const data = {
+                follower: this.user.id,
+                following: user.id
+            }
+
+            this.api.post('followers', data)
+            .then((response) => {
+            if (response.status >= 200 && response.status < 300) {
+                this.changeButtons(button, user, 'Unfollow');
+                return response.data;
+            } else {
+                let error = new Error(response.statusText);
+                error.response = response;
+                return error
+            }
+            })
+            .catch((error) => {             
+            console.error('error', error);
+            });
+        }
+    }
+
+    createButtonUnfollow(user) {
+
+        const buttonUnfollow = this.createElem('button', 'search__container_results-list-item_buttons-unfollow', 'Unfollow');
+        buttonUnfollow.addEventListener("click", this.unfollowUser(user, buttonUnfollow).bind(this));
+        return buttonUnfollow;
+    }
+
+    createButtonFollow(user)  {
+
+        const buttonFollow = this.createElem('button', 'search__container_results-list-item_buttons-follow', 'Follow');
+        buttonFollow.addEventListener("click", this.followNewUser(user, buttonFollow).bind(this));
+        return buttonFollow;
+    }
+
     createResultList(results) {
 
         const fragment = document.createDocumentFragment();
@@ -65,15 +147,27 @@ const Search = class {
         results.forEach(element => {
             const li = this.createElem('li', 'search__container_results-list-item');
             const infoDiv = this.createElem('div', 'search__container_results-list-item_info', element.name);
-            const buttonsDiv = this.createElem('div', 'search__container_results-list-item_buttons');
-            const buttonFollow = this.createElem('button', 'search__container_results-list-item_buttons', 'Follow');
-            const buttonSendMessage = this.createElem('button', 'search__container_results-list-item_buttons', 'Send message');
-
-            buttonsDiv.appendChild(buttonFollow);
-            buttonsDiv.appendChild(buttonSendMessage);
 
             li.appendChild(infoDiv);
-            li.appendChild(buttonsDiv);
+
+            if(this.user) {
+                const buttonsDiv = this.createElem('div', 'search__container_results-list-item_buttons');
+                if (element.userFollowing[0] && element.userFollowing[0].id === this.user.id) {
+                    const buttonUnfollow = this.createButtonUnfollow(element);
+                    buttonsDiv.appendChild(buttonUnfollow);
+                } else {
+                    const buttonFollow = this.createButtonFollow(element);
+                    buttonsDiv.appendChild(buttonFollow);
+                }
+                
+                // const buttonSendMessage = this.createElem('button', 'search__container_results-list-item_buttons-chat', 'Chat');
+    
+                
+                // buttonsDiv.appendChild(buttonSendMessage);
+                li.appendChild(buttonsDiv);
+            }
+
+            
 
             fragment.appendChild(li);
         });
@@ -109,6 +203,7 @@ const Search = class {
         }
 
         const response = await this.getSearchResult(searchData);
+        console.log(response);
 
         const count = response.data.count;
         const users = response.data.rows;
@@ -118,4 +213,16 @@ const Search = class {
         this.setCount(count);
     }
     
+}
+
+
+function isAnagrama (a, b) {
+    a = a.toLowerCase().trim();
+    b = b.toLowerCase().trim();
+
+    if( a===b) return ('Не анаграма')
+    [к, о, т]
+    [к, о, т]
+
+
 }

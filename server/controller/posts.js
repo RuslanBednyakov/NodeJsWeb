@@ -5,9 +5,10 @@ const Op = Sequelize.Op;
 
 export async function getPostsByUserId(req, res, next){
 
+
   try {
     const id = req.params.id;
-    console.log(id);
+
     const response = await db.Post.findAll({
       where: { user_id: id }
     });
@@ -23,84 +24,31 @@ export async function getPostsByUserId(req, res, next){
 
 export async function getPostsFriends(req, res, next) {
 
-  const id = '11';
+  try {
 
-  // db.User
-  //   .findAll({
-  //       where: {
-  //         '$userFollowing.id$': id
-  //       },
-  //         include: [{
-  //           model: db.User,
-  //           as: 'userFollowing',
-  //           through: {
-  //             where: { follower: id}
-  //           }
-  //         }],
-  //   })
-  // .then(users => {
-  // console.log(JSON.stringify(users))})
-
-  db.Post
-    .findAll({
+    const id = req.params.id;
+    const response = await db.Post.findAll({
       where: { '$User.userFollowing.id$': id },
       include: [{
+        model: db.User,
+        attributes: { exclude: ['password'] },
+        include: [{
           model: db.User,
-          include: [{
-            model: db.User,
-            as: 'userFollowing',
-            through: {
-              where: { follower: id}
-            }
-          }]
+          as: 'userFollowing',
+          attributes: { exclude: ['password'] },
+          through: {
+            where: { follower: id}
+          }
+        }]
       }]
     })
-    .then(posts => {
-      const filteredPosts = posts.forEach(element => {
-        delete element.User.password;
-        delete element.User.userFollowing.password;
-      }); 
-      return filteredPosts
-    })
-    .then(filteredPosts => {
-    console.log(JSON.stringify(filteredPosts))})
- 
-  //   .then(users => {
-  //     if (users !== null) {
-  //       users.forEach(element => {
-  //         delete element.password;
-  //       });
-  //       res.status(200).send({
-  //         result: 1,
-  //         data: users,
-  //         message: 'Search successfull'
-  //       })
-  //     } else  {
-  //       res.send({
-  //         result: 2,
-  //         message: 'No results'
-  //       })
-  //     }
-  //   })
-  //   .catch(err => { 
-  //     throw new Error(err.message)
-  //   })
-    // const response = await db.sequelize.query(
-    //   `SELECT * FROM posts RIGHT JOIN users ON posts.user_id=users.id WHERE
-    //   user_id IN (SELECT following FROM followers WHERE follower=:id);`, 
-    //   { 
-    //     type: db.sequelize.QueryTypes.SELECT,
-    //     replacements: { id }
-    //   }
-    // )
+      
+    res.status(200).send(response);
     
-    // res.status(200).send(response);
-    
-  // } catch (err) {
+  } catch (err) {
 
-  //   loggerW.error(err);
-  //   next(new Error(err.message));
-  // }
+    next(new Error(err.message));
+  }
 }
 
 export async function createNewPost(req, res, next) {

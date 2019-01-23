@@ -880,23 +880,14 @@ a {
     -webkit-transform: scale(0);
     transform: scale(0); } } */
 
-/* @media screen and (max-width: 1200px) {
+@media screen and (max-width: 1200px) {
   .container {
     width: 90%; }
   .header__container_search-input {
     width: 50%; }
   .menu__list_item {
     width: 25%;
-    text-align: center; }
-  .info__gallery_container {
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap; }
-    .info__gallery_container-img {
-      margin-right: 10px;
-      margin-bottom: 10px; } }
+    text-align: center; } }
 
 @media screen and (max-width: 750px) {
   .container {
@@ -917,35 +908,9 @@ a {
       .header__container_search-input {
         margin-right: 5px; }
   .menu__list_item {
-    padding: 6px 10px; }
-  .info__lists_container {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column; }
-    .info__lists_container-list {
-      margin-bottom: 10px; }
-  .info__table_container-cell {
-    padding: 5px; }
-  .arrow-next::after {
-    right: 36%;
-    border: 25px solid transparent;
-    border-left: 25px solid white; }
-  .arrow-prev::after {
-    left: 36%;
-    border: 25px solid transparent;
-    border-right: 25px solid white; }
-  .section__slider_title {
-    height: auto;
-    padding: 10px 15px;
-    font-size: 11px; }
-    .section__slider_title-header {
-      font-size: 12px; } }
+    padding: 6px 10px; } }
 
-@media screen and (max-width: 600px) {
-  .section__slider_title {
-    line-height: 1.1;
-    padding: 5px 5px; } }
+@media screen and (max-width: 600px) { }
 
 @media screen and (max-width: 400px) {
   .header__container {
@@ -961,24 +926,4 @@ a {
       .menu__list_item {
         width: 100%;
         border-right: none;
-        border-bottom: 1px solid #686868; }
-  .info__table_container-cell {
-    font-size: 12px;
-    padding: 3px; }
-  .info__forms_container-textarea {
-    width: 250px; }
-  .arrow-next::after {
-    right: 25%;
-    border: 15px solid transparent;
-    border-left: 15px solid white; }
-  .arrow-prev::after {
-    left: 25%;
-    border: 15px solid transparent;
-    border-right: 15px solid white; }
-  .section__slider_title {
-    padding: 3px 3px;
-    font-size: 10px; }
-    .section__slider_title-header {
-      font-size: 11px; } } */
-
-/*# sourceMappingURL=main.css.map */
+        border-bottom: 1px solid #686868; } }

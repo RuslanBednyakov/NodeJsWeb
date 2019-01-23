@@ -22,21 +22,23 @@ const App = (function (){
 
           this.logOutSubmitButton = document.getElementById('logOut');
 
-          this.signInEmailInput = document.getElementById('email');
-          this.signInPasswordInput = document.getElementById('password');
-          this.signInSubmitButton = document.getElementById('submit');
-          this.signInErrorContainer = document.getElementById('error');
+          this.signInEmailInput = document.getElementById('sign-in_email');
+          this.signInPasswordInput = document.getElementById('sign-in_password');
+          this.signInSubmitButton = document.getElementById('sign-in_submit-button');
+          this.signInErrorContainer = document.getElementById('sign-in_error');
 
-          this.signUpNameInput = document.getElementById('registrationName');
-          this.signUpEmailInput = document.getElementById('registrationEmail');
-          this.signUpPasswordInput = document.getElementById('registrationPassword');
-          this.signUpSubmitButton = document.getElementById('registrationButton');
+          this.signUpEmailInput = document.getElementById('sign-up_email');
+          this.signUpNameInput = document.getElementById('sign-up_name');
+          this.signUpPasswordInput = document.getElementById('sign-up_password');
+          this.signUpPasswordConfirmInput = document.getElementById('sign-up_password-confirm');
+          this.signUpSubmitButton = document.getElementById('sign-up_submit-button');
+          this.signUpErrorContainer = document.getElementById('sign-up_error');
 
 
           this.currentPageName = this.getCurrentPageName();
           this.user = null;
           this.pageObject = null;
-          this.search = new Search(this.api, this.searchContainer, this.searchCount);
+          this.search = new Search(this.api, this.user, this.searchContainer, this.searchCount);
       },
 
       attachEvents: function(){
@@ -76,22 +78,27 @@ const App = (function (){
           password: signInPasswordInputValue
         };
 
-        const signIn = new SignIn(this.api, signInData, this.signInErrorContainer);
+        const signInPageDomElements = {
+          signInEmail: this.signInEmailInput,
+          signInPassword: this.signInPasswordInput,
+          signInErrorContainer: this.signInErrorContainer
+        };
+
+        const signIn = new SignIn(this.api, signInPageDomElements);
         signIn.submit();
       },
 
       signUp: function(){
 
-        const signUpNameInputValue = this.signUpNameInput.value;
-        const signUpEmailInputValue = this.signUpEmailInput.value;
-        const signUpPasswordInputValue = this.signUpPasswordInput.value;
-        const signUpData = {
-          name: signUpNameInputValue,
-          email: signUpEmailInputValue,
-          password: signUpPasswordInputValue,
+        const signUpPageDomElements = {
+          signUpEmail: this.signUpEmailInput,
+          signUpName: this.signUpNameInput,
+          signUpPassword: this.signUpPasswordInput,
+          signUpPasswordConfirm: this.signUpPasswordConfirmInput,
+          signUpErrorContainer: this.signUpErrorContainer
         };
 
-        const signUp = new SignUp(this.api, signUpData);
+        const signUp = new SignUp(this.api, signUpPageDomElements);
         signUp.submit();
       },
 
@@ -156,6 +163,44 @@ const App = (function (){
         this.pageObject.render();
       },
 
+      initNewsPage: function() {
+
+        this.newsPagePostsContainer = document.getElementById('news__list');
+
+        const newsDomElements = {
+          newsPostsContainer: this.newsPagePostsContainer
+        }
+
+        return newsDomElements;
+      },
+
+      renderNewsPage: function() {
+
+        const newsDomElements = this.initNewsPage();
+
+        this.pageObject = new NewsPage(this.api, this.user, newsDomElements);
+        this.pageObject.render();
+      },
+
+      initMyFriendsPage: function() {
+
+        this.myFriendsContainer = document.getElementById('friends__list');
+
+        const myFriendsDomElements = {
+          myFriendsContainer: this.myFriendsContainer
+        }
+
+        return myFriendsDomElements;
+      },
+
+      renderMyFriendsPage: function() {
+
+        const myFriendsDomElements = this.initMyFriendsPage();
+
+        this.pageObject = new MyFriendsPage(this.api, this.user, myFriendsDomElements);
+        this.pageObject.render();
+      },
+
       renderPage: function(page) {
 
         switch (page) {
@@ -165,10 +210,15 @@ const App = (function (){
             this.renderMyPage();
             break;
 
-          // case '/news': 
+          case '/news': 
     
-          //   this.renderNewsPage();
-          //   break;
+            this.renderNewsPage();
+            break;
+
+          case '/friends': 
+    
+            this.renderMyFriendsPage();
+            break;
     
           default: return;
         }
@@ -187,6 +237,7 @@ const App = (function (){
 
         if(currentSearchInputValue) {
 
+          this.search.setUser(this.user);
           this.search.render();
           return;
         };

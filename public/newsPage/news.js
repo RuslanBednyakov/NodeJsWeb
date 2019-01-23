@@ -1,4 +1,4 @@
-const newsPage = class {
+const NewsPage = class {
 
     constructor(api, user, pageDomElements) {
 
@@ -47,8 +47,8 @@ const newsPage = class {
         posts.forEach(element => {
             const li = this.createElem('li', 'news__container_list-item');
             const userDiv = this.createElem('div', 'news__container_list-item_user');
-            const userAvatarDiv = this.createElem('div', 'news__container_list-item_user-avatar', element.avatar);
-            const userInfoDiv = this.createElem('div', 'news__container_list-item_user-info', element.name);
+            const userAvatarDiv = this.createElem('div', 'news__container_list-item_user-avatar', element.User.avatar);
+            const userInfoDiv = this.createElem('div', 'news__container_list-item_user-info', element.User.name);
             const postDiv = this.createElem('div', 'news__container_list-item_post')
             const postTitleDiv = this.createElem('div', 'news__container_list-item_post-title', element.title)
             const postContentDiv = this.createElem('div', 'news__container_list-item_post-content', element.content)
@@ -73,9 +73,10 @@ const newsPage = class {
     async render() {
         
         const posts = await this.getFriendsPosts();
+        console.log(posts);
 
         const friendsPostsList = this.createFriendsPostsList(posts);
-        this.container.appendChild(friendsPostsList);      
+        this.pageDomElements.newsPostsContainer.appendChild(friendsPostsList);      
 
     }
     
